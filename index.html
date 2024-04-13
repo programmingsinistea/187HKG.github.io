@@ -1,103 +1,158 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>187th scout</title>
-    </head>
-    <body onload="loadDefaultPage()">
-        <style>
-            body {
-                text-align: center;
-                text-decoration: dashed;
-                font-family: Arial, Helvetica, sans-serif;
-                word-break: break-all;
-                background-color: rgb(246, 226, 203);
-            }
-            #head {
-                border-style: solid;
-                border-width: medium;  
-            }
-            #menu {
-                position: relative;
-                width: 60px; /* Added 'px' to specify the width */
-            }
-            button {
-                border: 0.1cm;
-                border-style: solid;
-                width:200px; 
-                height: 100px;
-                font-family: Arial;
-                font-size: 20px;
-                font-weight: 100;
-                font-style: normal;
-            }
-            button:hover {
-                width: 210px;
-                height: 100px;
-            }
-            .b1 {
-                background-color: rgb(45, 117, 179);
-                color:white;
-            }
-            .b1:hover {
-                background-color: rgb(127, 178, 223)
-            }
-            .b2 {
-                background-color: aliceblue;
-            }
-            .b2:hover {
-                background-color: rgb(207, 216, 223);
-            }
-            .b3 {
-                background-color: rgb(61, 20, 20);
-                color: aliceblue;
-            }
-            .b3:hover {
-                background-color: rgb(88, 30, 30);
-            }
-            .frame {
-                position: relative;
-                top: -300px;
-                right: -210px;
-                width: 700px;
-                height: 1000px;
-            }
-        </style>
-        <div id="head">
-            <h1>187th scout</h1>
-        </div>
-        <div id="menu">
-            <table>
-                <tr>
-                    <button class="b1" onclick="changeIframe('homePage')">
-                        <img src="scout_logo_be_prepared.jpg" alt="icon.png" style="border: 0.1cm; border-style: solid; width: 100px; height: auto;">
-                    </button>
-                </tr>
-                <tr>
-                    <button class="b2" onclick="changeIframe('aboutUs')">關於我們</button>
-                </tr>
-                <tr>
-                    <button class="b3" onclick="changeIframe('gslTalk')">旅長的話</button>
-                </tr>
-            </table>
-            <iframe class="frame" src="" frameborder="0" id="frame"></iframe>
-        </div>
-        <script>
-            function loadDefaultPage() {
-                const frame = document.getElementById("frame");
-                frame.src = "html/homepage.html";
-            }
+<head>
+<meta charset="utf-8">
+<title>orderingSystem</title>
+</head>
+<body onload='menuChoose("food")'>
+    <style>
+        body {
+            background-color: rgb(233, 232, 202);
+            color: black;
+        }
+        a:link {
+            color: #000000;
+        }   
+        a:visited {
+            color: #00FF00;
+        }  
+        a:hover {
+            color: #FF00FF;
+        }  
+        a:active {
+            color: #0000FF;
+        }
+        button {
+            color: white;
+            background-color: brown;
+            border-color: black;
+        }
+        button:hover {
+            background-color:rgb(80, 48, 48);
+        }
+        #menu {
+            float: left;
+            text-align: center;
+            word-spacing: 1cm;
+            width: 100%;
+            border-style: dashed;
+            border-color: brown;
+            background-color: rgb(243, 222, 197);
+        }
+        #menu button {
+            display: inline-block; /* Display buttons in a row */
+            margin: 5px; /* Add margin for spacing */
+        }
+        #main {
+            border-style: dotted;
+            border-color: brown;
+            padding: 10px;
+        }  
+        .content {
+            border-style: dotted;
+            border-color: brown;
+            border-width: 2px;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 5px;    
+            display: inline-block;
+        }
+        #header {
+            border-style: dotted;
+            border-color: brown;
+            text-align: center;
+        }
+        #login-container{
+            border-style: groove;
+            border-color:   brown;
+            width: 100%;
+            border-radius: 5px;
 
-            function changeIframe(target) {
-                const pages = {
-                    homePage: "html/homepage.html",
-                    aboutUs: "http://www.48hkg.com/intro.htm",
-                    gslTalk: "http://www.48hkg.com/gsltalk.htm",
-                    text: "https://www.runoob.com/css/css-positioning.html",
+        }
+    </style>
+    
+    <div id="header">
+        <h1 class="text">ordering system</h1><br> 
+        <button id="login">{login}(uncompleted))</button>
+        <p id="amount-container">0</p>
+    </div>
+
+    <div id="menu">
+        <button id="food" onclick='menuChoose("food")'>{food}</button>
+        <button id="drink" onclick='menuChoose("drink")'>{drink}</button>
+        <button id="set" onclick='menuChoose("set")'>{set}</button>
+        <button id="other" onclick='menuChoose("other")'>{other}</button>
+    </div>
+
+    <div id="main">
+        <div id="button-container"></div>
+    </div>
+    <div id="login-container" class=""></div>
+
+    <script>
+        let products = [
+        ["Burgers", "food", 30],
+        ["McNuggets", "other", 20],
+        ["BigMac", "food", 20],
+        ["McChicken", "other", 20],
+        ["Fries", "other", 15],
+        ["HappyMeal", "set", 60],
+        ["ApplePie", "other", 15],  
+        ["Cola", "drink", 15],
+        ["Fentanyl", "drink", 15],
+        ["sprite", "drink", 15]
+        ];
+        if(typeof(Storage) ==="undefined"){
+            alert("local storage not supported in the browser");
+        } 
+        if(localStorage.length){
+            alert("no localSave founded")
+            let productJson = JSON.stringify(products);
+            
+
+        }else(
+            alert("localSave founded")
+        )
+
+
+        let amount = 0;
+        let selectedProduct;
+        const buttonContainer = document.getElementById("button-container");
+
+
+        function buttonClick() {
+            const amountContainer = document.getElementById("amount-container");
+            amount += selectedProduct[2];
+            amountContainer.textContent = `amount:${amount}`;
+        }
+
+        function menuChoose(id) {
+            buttonContainer.innerHTML = "";
+            const foodReturn = getFoodReturn(id);
+
+            for (let i = 0; i < foodReturn.length; i++) {
+                const button = document.createElement("button");
+                button.textContent = foodReturn[i][0];
+
+                button.onclick = function () {
+                    selectedProduct = foodReturn[i];
+                    buttonClick();
                 };
-                const frame = document.getElementById("frame");
-                frame.src = pages[target];
+
+                buttonContainer.appendChild(button);
             }
-        </script>
-    </body>
+        }
+
+        function getFoodReturn(id) {
+            const foodReturn = [];
+            for (let i = 0; i < products.length; i++) {
+                if (products[i][1] === id) {
+                    foodReturn.push(products[i]);
+                }
+            }
+            return foodReturn;
+        }
+
+    </script>
+</body>
 </html>
