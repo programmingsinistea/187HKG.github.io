@@ -24,7 +24,7 @@
             button {
                 border: 0.1cm;
                 border-style: solid;
-                width: 75px; 
+                width:200px; 
                 height: 100px;
                 font-family: Arial;
                 font-size: 20px;
@@ -32,7 +32,7 @@
                 font-style: normal;
             }
             button:hover {
-                width: 80px;
+                width: 210px;
                 height: 100px;
             }
             .b1 {
@@ -58,7 +58,7 @@
             .frame {
                 position: relative;
                 top: -300px;
-                right: -80px;
+                right: -210px;
                 width: 700px;
                 height: 1000px;
             }
@@ -70,7 +70,7 @@
             <table>
                 <tr>
                     <button class="b1" onclick="changeIframe('homePage')">
-                        <img src="scout_logo_be_prepared.jpg" alt="icon.png" style="border: 0.1cm; border-style: solid; width: 50px; height: auto;">
+                        <img src="scout_logo_be_prepared.jpg" alt="icon.png" style="border: 0.1cm; border-style: solid; width: 100px; height: auto;">
                     </button>
                 </tr>
                 <tr>
@@ -85,12 +85,12 @@
         <script>
             function loadDefaultPage() {
                 const frame = document.getElementById("frame");
-                frame.src = "http://www.48hkg.com/index1.htm";
+                frame.src = "html/homepage.html";
             }
 
             function changeIframe(target) {
                 const pages = {
-                    homePage: "http://www.48hkg.com/index1.htm",
+                    homePage: "html/homepage.html",
                     aboutUs: "http://www.48hkg.com/intro.htm",
                     gslTalk: "http://www.48hkg.com/gsltalk.htm",
                     text: "https://www.runoob.com/css/css-positioning.html",
