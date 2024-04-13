@@ -1,158 +1,180 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>orderingSystem</title>
-</head>
-<body onload='menuChoose("food")'>
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="utf-8">
+    <title>187th scout</title>
     <style>
-        body {
-            background-color: rgb(233, 232, 202);
-            color: black;
-        }
-        a:link {
-            color: #000000;
-        }   
-        a:visited {
-            color: #00FF00;
-        }  
-        a:hover {
-            color: #FF00FF;
-        }  
-        a:active {
-            color: #0000FF;
-        }
-        button {
-            color: white;
-            background-color: brown;
-            border-color: black;
-        }
-        button:hover {
-            background-color:rgb(80, 48, 48);
-        }
-        #menu {
-            float: left;
-            text-align: center;
-            word-spacing: 1cm;
-            width: 100%;
-            border-style: dashed;
-            border-color: brown;
-            background-color: rgb(243, 222, 197);
-        }
-        #menu button {
-            display: inline-block; /* Display buttons in a row */
-            margin: 5px; /* Add margin for spacing */
-        }
-        #main {
-            border-style: dotted;
-            border-color: brown;
-            padding: 10px;
-        }  
-        .content {
-            border-style: dotted;
-            border-color: brown;
-            border-width: 2px;
-            border-radius: 5px;
-            padding: 5px;
-            margin: 5px;    
-            display: inline-block;
-        }
-        #header {
-            border-style: dotted;
-            border-color: brown;
-            text-align: center;
-        }
-        #login-container{
-            border-style: groove;
-            border-color:   brown;
-            width: 100%;
-            border-radius: 5px;
+    body {
+    text-align: center;
+    text-decoration: dashed;
+    font-family: Arial, Helvetica, sans-serif;
+    word-break: break-all;
+    background-color: rgb(246, 226, 203);
+    }
 
-        }
+    #head {
+    border-style: solid;
+    border-width: medium;
+    }
+
+    #menu {
+    position: relative;
+    width: 60px;
+    overflow-y: visible; /* Updated value */
+
+}
+
+    button {
+    border: 0.1cm;
+    border-style: solid;
+    width: calc(100% / 5);
+    height: 100px;
+    font-family: Arial;
+    font-size: 20px;
+    font-weight: 100;
+    font-style: normal;
+    }
+
+    button:hover {
+    width: calc(100% / 5 + 10px);
+    height: 100px;
+    }
+
+    .b1 {
+    background-color: rgb(45, 117, 179);
+    color: white;
+    }
+
+    .b1:hover {
+    background-color: rgb(127, 178, 223);
+    }
+
+    .b2 {
+    background-color: aliceblue;
+    }
+
+    .b2:hover {
+    background-color: rgb(207, 216, 223);
+    }
+
+    .b3 {
+    background-color: rgb(61, 20, 20);
+    color: aliceblue;
+    }
+
+    .b3:hover {
+    background-color: rgb(88, 30, 30);
+    }
+
+    #frame {
+    position: relative;
+    top: -300px;
+    right: -60px; /* Updated value */
+    width: 700px;
+    height: 1000px;
+    }
+
+    .button-img {
+    width: 100px;
+    height: auto;
+    }
     </style>
-    
-    <div id="header">
-        <h1 class="text">ordering system</h1><br> 
-        <button id="login">{login}(uncompleted))</button>
-        <p id="amount-container">0</p>
+    </head>
+    <body onload="loadDefaultPage(); resizing();" onresize="resizing()">
+    <div id="head">
+    <h1>187th scout</h1>
     </div>
-
     <div id="menu">
-        <button id="food" onclick='menuChoose("food")'>{food}</button>
-        <button id="drink" onclick='menuChoose("drink")'>{drink}</button>
-        <button id="set" onclick='menuChoose("set")'>{set}</button>
-        <button id="other" onclick='menuChoose("other")'>{other}</button>
+    <table>
+    <tr>
+    <td>
+    <button class="b1" onclick="changeIframe('homePage')">
+    <img class="button-img" src="scout_logo_be_prepared.jpg" alt="icon.png">
+    </button>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <button class="b2" onclick="changeIframe('aboutUs')">關於我們</button>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <button class="b3" onclick="changeIframe('gslTalk')">旅長的話</button>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <button class="b1" onclick="changeIframe('calender')">行事曆</button>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <button class="b2" onclick="changeIframe('Notice')">通告</button>
+    </td>
+    </tr>
+    </table>
     </div>
-
-    <div id="main">
-        <div id="button-container"></div>
-    </div>
-    <div id="login-container" class=""></div>
-
+    <iframe id="frame" src="" frameborder="0"></iframe>
     <script>
-        let products = [
-        ["Burgers", "food", 30],
-        ["McNuggets", "other", 20],
-        ["BigMac", "food", 20],
-        ["McChicken", "other", 20],
-        ["Fries", "other", 15],
-        ["HappyMeal", "set", 60],
-        ["ApplePie", "other", 15],  
-        ["Cola", "drink", 15],
-        ["Fentanyl", "drink", 15],
-        ["sprite", "drink", 15]
-        ];
-        if(typeof(Storage) ==="undefined"){
-            alert("local storage not supported in the browser");
-        } 
-        if(localStorage.length){
-            alert("no localSave founded")
-            let productJson = JSON.stringify(products);
-            
+    function loadDefaultPage() {
+    const frame = document.getElementById("frame");
+    frame.src = "html/homepage.html";
+    }
 
-        }else(
-            alert("localSave founded")
-        )
+    function changeIframe(target) {
+    const pages = {
+        homePage: "html/homepage.html",
+        aboutUs: "http://www.48hkg.com/intro.htm",
+        gslTalk: "http://www.48hkg.com/gsltalk.htm",
+        text: "https://www.runoob.com/css/css-positioning.html",
+    };
+    const frame = document.getElementById("frame");
+    frame.src = pages[target];
+    }
 
+    function resizing() {
+    const buttonSize = document.getElementsByTagName("button");
+    const iframeSize = document.getElementById("frame");
+    const buttonWidth = window.innerWidth / 5;
+    const imageSize = buttonWidth / 5;
+    const fontSize = buttonWidth / 10;
+    
+    for (let i = 0; i < buttonSize.length; i++) {
+        buttonSize[i].style.width = buttonWidth + "px";
+    }
+    
+    const buttonImages = document.getElementsByClassName("button-img");
+    for (let i = 0; i < buttonImages.length; i++) {
+        if(imageSize<20){
+            buttonImages[i].style.width = 40 + "px";
 
-        let amount = 0;
-        let selectedProduct;
-        const buttonContainer = document.getElementById("button-container");
+        }else if(imageSize>75){
+            buttonImages[i].style.width = 150 + "px";
 
+        }else{
+            buttonImages[i].style.width = imageSize*2 + "px";
 
-        function buttonClick() {
-            const amountContainer = document.getElementById("amount-container");
-            amount += selectedProduct[2];
-            amountContainer.textContent = `amount:${amount}`;
         }
-
-        function menuChoose(id) {
-            buttonContainer.innerHTML = "";
-            const foodReturn = getFoodReturn(id);
-
-            for (let i = 0; i < foodReturn.length; i++) {
-                const button = document.createElement("button");
-                button.textContent = foodReturn[i][0];
-
-                button.onclick = function () {
-                    selectedProduct = foodReturn[i];
-                    buttonClick();
-                };
-
-                buttonContainer.appendChild(button);
-            }
+    }
+    
+    const buttonTexts = document.querySelectorAll("button");
+    for (let i = 0; i < buttonTexts.length; i++) {
+        if(fontSize < 10){
+            buttonTexts[i].style.fontSize = 20 + "px";
+        }else{
+            buttonTexts[i].style.fontSize = fontSize*2 + "px";
         }
-
-        function getFoodReturn(id) {
-            const foodReturn = [];
-            for (let i = 0; i < products.length; i++) {
-                if (products[i][1] === id) {
-                    foodReturn.push(products[i]);
-                }
-            }
-            return foodReturn;
-        }
+    }
+    
+    iframeSize.style.width = window.innerWidth - buttonWidth + "px";
+    iframeSize.style.height = window.innerHeight + "px";
+    iframeSize.style.right = "-" + buttonWidth + "px"; /* Updated value */
+    iframeSize.style.top = "-" + buttonTexts.length * 101 + "px"
+    buttonSize.style.maxWidth = buttonWidth + 20 + "px"; /* Updated value */
+    }
 
     </script>
-</body>
-</html>
+
+    </body>
+    </html>
